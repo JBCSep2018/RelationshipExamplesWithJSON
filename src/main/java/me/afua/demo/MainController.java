@@ -1,5 +1,4 @@
 package me.afua.demo;
-
 import me.afua.demo.directormovie.Director;
 import me.afua.demo.directormovie.DirectorRepository;
 import me.afua.demo.directormovie.Movie;
@@ -38,6 +37,9 @@ public class MainController {
     {
         Employee me = new Employee("Samantha","Smith");
         me.setMyLaptop(new Laptop("Dell","Optilex","123456"));
+        employees.save(me);
+        me = new Employee("Samantha","Jones");
+        me.setMyLaptop(new Laptop("HP","Don't remember","123456"));
         employees.save(me);
       return showAllPeople();
     }
@@ -88,6 +90,12 @@ public class MainController {
         movies.save(theMovie);
         theMovie.getActors().add(thisActor);
         return showMovies();
+    }
+
+    @RequestMapping("/showdells")
+    public Iterable<Employee> listDells()
+    {
+        return employees.findAllByMyLaptop_Model("Optilex");
     }
 
 
